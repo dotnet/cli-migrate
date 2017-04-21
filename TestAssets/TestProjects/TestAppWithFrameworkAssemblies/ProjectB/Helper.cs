@@ -3,13 +3,13 @@
 
 using System;
 
-namespace ConsoleApplication
+namespace TestLibrary
 {
-    public class Program
+    public static class ProjectB
     {
-        public static void Main(string[] args)
+        public static string GetMessage()
         {
-            Console.WriteLine("Hello World!");
+            return "This string came from ProjectB";
         }
     }
 }

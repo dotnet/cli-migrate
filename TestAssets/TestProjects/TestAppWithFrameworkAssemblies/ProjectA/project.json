@@ -1,20 +1,28 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
-    "emitEntryPoint": true
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true
   },
   "dependencies": {
-    "Microsoft.NETCore.App": "1.1.0"
+    "ProjectB": {
+      "target": "project",
+      "version": "1.0.0-*"
+    }
   },
   "frameworks": {
-    "netcoreapp1.1": {}
+    "netcoreapp1.1": {
+      "dependencies": {
+        "Microsoft.NETCore.App": "1.1.0"
+      }
+    },
+    "net451": {}
   },
   "runtimes": {
     "win7-x64": {},
     "win7-x86": {},
     "osx.10.10-x64": {},
     "osx.10.11-x64": {},
-    "osx.10.12-x64": {},
     "ubuntu.14.04-x64": {},
     "ubuntu.16.04-x64": {},
     "centos.7-x64": {},

@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
     "nowarn": [
@@ -12,18 +12,12 @@
   "dependencies": {
     "NETStandard.Library": "1.6.0"
   },
-  "configurations": {
-    "Test": {}
-  },
   "frameworks": {
-    "netstandard1.5": {}
-  },
-  "packOptions": {
-      "files": {
-          "include": ["contentitem.txt"],
-          "mappings": {
-              "dir/contentitem.txt": "contentitem.txt"
-          }
+    "netstandard1.5": {},
+    "net451": {
+      "frameworkAssemblies": {
+        "System.ComponentModel.DataAnnotations": ""
       }
+    }
   }
 }
