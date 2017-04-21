@@ -18,11 +18,11 @@ namespace Microsoft.DotNet.ProjectJsonMigration.Tests
 {
     public class GivenThatIWantToMigrateTFMs : TestBase
     {
-        [Fact(Skip="Emitting this until x-targeting full support is in")]
+        [Fact]
         public void MigratingNetcoreappProjectDoesNotPopulateTargetFrameworkIdentifierAndTargetFrameworkVersion()
         {
             var testDirectory = Temp.CreateDirectory().Path;
-            var testPJ = new ProjectJsonBuilder(TestAssets)
+            new ProjectJsonBuilder(TestAssets)
                 .FromTestAssetBase("TestAppWithRuntimeOptions")
                 .WithCustomProperty("buildOptions", new Dictionary<string, string>
                 {

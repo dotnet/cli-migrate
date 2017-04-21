@@ -22,11 +22,10 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var globalJsonPath = solutionDirectory.GetFile("global.json");
 
-            new TestCommand("dotnet")
-                    .WithForwardingToConsole()
-                    .Execute($"migrate {globalJsonPath.FullName}")
-                    .Should()
-                    .Pass();
+            new MigrateTestCommand()
+                .Execute($"{globalJsonPath.FullName}")
+                .Should()
+                .Pass();
         }
 
         [Fact]
@@ -40,22 +39,23 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var globalJsonPath = solutionDirectory.GetFile("global.json");
 
-            new TestCommand("dotnet")
-                    .WithForwardingToConsole()
-                    .Execute($"migrate {globalJsonPath.FullName}")
-                    .Should()
-                    .Pass();
+            new MigrateTestCommand()
+                .Execute($"{globalJsonPath.FullName}")
+                .Should()
+                .Pass();
 
             solutionDirectory
-                .Should().HaveFiles(new []
-                    {
-                        Path.Combine("src", "App", "App.csproj"),
-                        Path.Combine("test", "App.Tests", "App.Tests.csproj"),
-                        Path.Combine("TestAssets", "TestAsset", "project.json")
-                    });
+                .Should()
+                .HaveFiles(new[]
+                {
+                    Path.Combine("src", "App", "App.csproj"),
+                    Path.Combine("test", "App.Tests", "App.Tests.csproj"),
+                    Path.Combine("TestAssets", "TestAsset", "project.json")
+                });
 
             solutionDirectory
-                .Should().NotHaveFile(Path.Combine("TestAssets", "TestAsset", "TestAsset.csproj"));
+                .Should()
+                .NotHaveFile(Path.Combine("TestAssets", "TestAsset", "TestAsset.csproj"));
         }
 
         [Fact]
@@ -69,12 +69,11 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var globalJsonPath = solutionDirectory.GetFile("global.json");
 
-            new TestCommand("dotnet")
-                    .WithWorkingDirectory(solutionDirectory)
-                    .WithForwardingToConsole()
-                    .Execute($"migrate global.json")
-                    .Should()
-                    .Pass();
+            new MigrateTestCommand()
+                .WithWorkingDirectory(solutionDirectory)
+                .Execute($"global.json")
+                .Should()
+                .Pass();
         }
     }
 }

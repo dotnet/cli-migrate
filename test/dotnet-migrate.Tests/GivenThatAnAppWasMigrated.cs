@@ -28,14 +28,16 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var migratableArtifacts = GetProjectJsonArtifacts(testRoot);
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(testRoot)
                 .Execute()
-                .Should().Pass();
+                .Should()
+                .Pass();
 
             var backupArtifacts = GetProjectJsonArtifacts(backupRoot);
 
-            backupArtifacts.Should().Equal(migratableArtifacts, "Because all of and only these artifacts should have been moved");
+            backupArtifacts.Should()
+                .Equal(migratableArtifacts, "Because all of and only these artifacts should have been moved");
 
             testRoot.Should().NotHaveFiles(backupArtifacts.Keys);
 
@@ -56,14 +58,16 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var migratableArtifacts = GetProjectJsonArtifacts(testRoot);
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(testRoot)
                 .Execute()
-                .Should().Pass();
+                .Should()
+                .Pass();
 
             var backupArtifacts = GetProjectJsonArtifacts(backupRoot);
 
-            backupArtifacts.Should().Equal(migratableArtifacts, "Because all of and only these artifacts should have been moved");
+            backupArtifacts.Should()
+                .Equal(migratableArtifacts, "Because all of and only these artifacts should have been moved");
 
             testRoot.Should().NotHaveFiles(backupArtifacts.Keys);
 
@@ -84,14 +88,16 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var migratableArtifacts = GetProjectJsonArtifacts(testRoot);
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(testRoot)
                 .Execute()
-                .Should().Fail();
+                .Should()
+                .Fail();
 
             backupRoot.Should().NotExist("Because migration failed and therefore no backup is needed.");
 
-            testRoot.Should().HaveTextFiles(migratableArtifacts, "Because migration failed so nothing was moved to backup.");
+            testRoot.Should()
+                .HaveTextFiles(migratableArtifacts, "Because migration failed so nothing was moved to backup.");
         }
 
         [Theory]
@@ -108,10 +114,11 @@ namespace Microsoft.DotNet.Migration.Tests
 
             var migratableArtifacts = GetProjectJsonArtifacts(testRoot);
 
-            new MigrateCommand()
+            new MigrateTestCommand()
                 .WithWorkingDirectory(testRoot)
                 .Execute("--skip-backup")
-                .Should().Pass();
+                .Should()
+                .Pass();
 
             backupRoot.Should().NotExist("Because --skip-backup was specified.");
 
@@ -122,7 +129,7 @@ namespace Microsoft.DotNet.Migration.Tests
         {
             var catalog = new Dictionary<string, string>();
 
-            var patterns = new[] { "global.json", "project.json", "project.lock.json", "*.xproj", "*.xproj.user" };
+            var patterns = new[] {"global.json", "project.json", "project.lock.json", "*.xproj", "*.xproj.user"};
 
             foreach (var pattern in patterns)
             {

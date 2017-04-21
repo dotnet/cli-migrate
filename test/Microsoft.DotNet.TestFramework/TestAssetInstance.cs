@@ -29,8 +29,8 @@ namespace Microsoft.DotNet.TestFramework
 
         private bool _built = false;
 
-        public static string CurrentRuntimeFrameworkVersion = new Muxer().SharedFxVersion;
-        
+        public static string CurrentRuntimeFrameworkVersion = GetSharedFxVersion();
+ 
         public TestAssetInstance(TestAssetInfo testAssetInfo, DirectoryInfo root)
         {
             if (testAssetInfo == null)
@@ -296,6 +296,13 @@ namespace Microsoft.DotNet.TestFramework
             {
                 Restore(projFile);
             }
+        }
+
+        private static string GetSharedFxVersion()
+        {
+            var depsFile = new FileInfo(Muxer.GetDataFromAppDomain("FX_DEPS_FILE"));
+            return depsFile.Directory.Name;
+
         }
     }
 }
