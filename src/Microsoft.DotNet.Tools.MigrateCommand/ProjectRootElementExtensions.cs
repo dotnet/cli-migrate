@@ -5,7 +5,7 @@ using System.Linq;
 using Microsoft.Build.Construction;
 using Microsoft.DotNet.ProjectJsonMigration;
 
-namespace Microsoft.DotNet.Tools.Migrate
+namespace Microsoft.DotNet.Tools.MigrateCommand
 {
     public static class ProjectRootElementExtensions
     {

@@ -1,24 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), dir.props))\dir.props" />
-
   <PropertyGroup>
     <Description>SLN file reader/writer</Description>
     <VersionPrefix>$(CliVersionPrefix)</VersionPrefix>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>$(CliTargetFramework)</TargetFramework>
     <DebugType>portable</DebugType>
     <AssemblyName>Microsoft.DotNet.Cli.Sln.Internal</AssemblyName>
     <AssemblyOriginatorKeyFile>../../tools/Key.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <PublicSign>true</PublicSign>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Microsoft.DotNet.Cli.Utils/Microsoft.DotNet.Cli.Utils.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="System.Collections.Specialized" Version="4.0.1" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.1.0" />
-    <PackageReference Include="NETStandard.Library" Version="1.6.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
+    <PackageReference Include="Microsoft.DotNet.Cli.Utils" Version="1.0.1" />
   </ItemGroup>
 </Project>
