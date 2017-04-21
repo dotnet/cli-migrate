@@ -1,0 +1,13 @@
+<Project ToolsVersion="15.0">
+    <PropertyGroup>
+        <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+        <NuGetPackagesDir>$(NUGET_PACKAGES)</NuGetPackagesDir>
+        <NuGetPackagesDir Condition=" '$(NuGetPackagesDir)' == '' ">$(RepoRoot)/.nuget/packages</NuGetPackagesDir>
+        <CliTargetFramework>netstandard1.6</CliTargetFramework>
+    </PropertyGroup>
+    <Import Condition="Exists('obj/CommitCount.props')" Project="obj/CommitCount.props" />
+    <Import Project="build/DependencyVersions.props" />
+    <PropertyGroup>
+        <CommitCount Condition="'$(CommitCount)' == ''">0</CommitCount>
+    </PropertyGroup>
+</Project>

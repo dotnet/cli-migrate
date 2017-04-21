@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26412.1
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.Cli.Sln.Internal", "src\Microsoft.DotNet.Cli.Sln.Internal\Microsoft.DotNet.Cli.Sln.Internal.csproj", "{D242CEB0-2CE6-4B97-8E6E-3AF877439E11}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.ProjectJsonMigration", "src\Microsoft.DotNet.ProjectJsonMigration\Microsoft.DotNet.ProjectJsonMigration.csproj", "{713E4D16-B61F-489A-BE64-1DBE603543B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{01A43CEF-4BC2-4A92-B4E6-9F89017CBB1B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0ADA9CD6-EB8D-4761-A943-CFADD5541B4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.ProjectJsonMigration.Tests", "test\Microsoft.DotNet.ProjectJsonMigration.Tests\Microsoft.DotNet.ProjectJsonMigration.Tests.csproj", "{2DBAC648-0F12-4B26-8937-BCED218BDFE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.TestFramework", "test\Microsoft.DotNet.TestFramework\Microsoft.DotNet.TestFramework.csproj", "{7F8E5DCB-56F1-48E4-B273-DA6203ACA2C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.Tools.Tests.Utilities", "test\Microsoft.DotNet.Tools.Tests.Utilities\Microsoft.DotNet.Tools.Tests.Utilities.csproj", "{BD7724B0-D5DB-413D-A970-C655462430B3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.Cli.Build.Framework", "test\Microsoft.DotNet.Cli.Build.Framework\Microsoft.DotNet.Cli.Build.Framework.csproj", "{75C08F13-990D-4744-9312-C2A000A65CB7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet-migrate.Tests", "test\dotnet-migrate.Tests\dotnet-migrate.Tests.csproj", "{41898463-DF99-4C10-8910-14FAD5FCD6D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.DotNet.Tools.MigrateCommand", "src\Microsoft.DotNet.Tools.MigrateCommand\Microsoft.DotNet.Tools.MigrateCommand.csproj", "{51609A15-7C27-4623-BFD5-22C43AD9A573}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D242CEB0-2CE6-4B97-8E6E-3AF877439E11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D242CEB0-2CE6-4B97-8E6E-3AF877439E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D242CEB0-2CE6-4B97-8E6E-3AF877439E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D242CEB0-2CE6-4B97-8E6E-3AF877439E11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{713E4D16-B61F-489A-BE64-1DBE603543B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713E4D16-B61F-489A-BE64-1DBE603543B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713E4D16-B61F-489A-BE64-1DBE603543B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713E4D16-B61F-489A-BE64-1DBE603543B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DBAC648-0F12-4B26-8937-BCED218BDFE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DBAC648-0F12-4B26-8937-BCED218BDFE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DBAC648-0F12-4B26-8937-BCED218BDFE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DBAC648-0F12-4B26-8937-BCED218BDFE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F8E5DCB-56F1-48E4-B273-DA6203ACA2C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F8E5DCB-56F1-48E4-B273-DA6203ACA2C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F8E5DCB-56F1-48E4-B273-DA6203ACA2C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F8E5DCB-56F1-48E4-B273-DA6203ACA2C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD7724B0-D5DB-413D-A970-C655462430B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD7724B0-D5DB-413D-A970-C655462430B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD7724B0-D5DB-413D-A970-C655462430B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD7724B0-D5DB-413D-A970-C655462430B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75C08F13-990D-4744-9312-C2A000A65CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75C08F13-990D-4744-9312-C2A000A65CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75C08F13-990D-4744-9312-C2A000A65CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75C08F13-990D-4744-9312-C2A000A65CB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41898463-DF99-4C10-8910-14FAD5FCD6D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41898463-DF99-4C10-8910-14FAD5FCD6D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41898463-DF99-4C10-8910-14FAD5FCD6D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41898463-DF99-4C10-8910-14FAD5FCD6D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51609A15-7C27-4623-BFD5-22C43AD9A573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51609A15-7C27-4623-BFD5-22C43AD9A573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51609A15-7C27-4623-BFD5-22C43AD9A573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51609A15-7C27-4623-BFD5-22C43AD9A573}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D242CEB0-2CE6-4B97-8E6E-3AF877439E11} = {01A43CEF-4BC2-4A92-B4E6-9F89017CBB1B}
+		{713E4D16-B61F-489A-BE64-1DBE603543B3} = {01A43CEF-4BC2-4A92-B4E6-9F89017CBB1B}
+		{2DBAC648-0F12-4B26-8937-BCED218BDFE6} = {0ADA9CD6-EB8D-4761-A943-CFADD5541B4A}
+		{7F8E5DCB-56F1-48E4-B273-DA6203ACA2C9} = {0ADA9CD6-EB8D-4761-A943-CFADD5541B4A}
+		{BD7724B0-D5DB-413D-A970-C655462430B3} = {0ADA9CD6-EB8D-4761-A943-CFADD5541B4A}
+		{75C08F13-990D-4744-9312-C2A000A65CB7} = {0ADA9CD6-EB8D-4761-A943-CFADD5541B4A}
+		{41898463-DF99-4C10-8910-14FAD5FCD6D3} = {0ADA9CD6-EB8D-4761-A943-CFADD5541B4A}
+		{51609A15-7C27-4623-BFD5-22C43AD9A573} = {01A43CEF-4BC2-4A92-B4E6-9F89017CBB1B}
+	EndGlobalSection
+EndGlobal

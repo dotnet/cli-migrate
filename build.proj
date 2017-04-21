@@ -1,0 +1,37 @@
+<Project DefaultTargets="BuildAll">
+  <Target Name="BuildAll" DependsOnTargets="DoBuild;DoPublish" />
+
+  <Target Name="DoBuild">
+    <MSBuild Projects="cli-migrate.sln" Targets="restore" />
+    <MSBuild Projects="cli-migrate.sln" Targets="build" />
+    <Exec Command="dotnet test test/dotnet-migrate.Tests/dotnet-migrate.Tests.csproj -l:trx" />
+    <Exec Command="dotnet test test/Microsoft.DotNet.ProjectJsonMigration.Tests/Microsoft.DotNet.ProjectJsonMigration.Tests.csproj -l:trx" />
+  </Target>
+
+  <Target Name="DoPublish">
+    <MSBuild Projects="src/Microsoft.DotNet.Tools.MigrateCommand/Microsoft.DotNet.Tools.MigrateCommand.csproj" Targets="pack" Properties="NoBuild=true" />
+  </Target>
+
+  <Target Name="MakeVersionProps">
+    <MakeDir Condition="!Exists('obj')"
+             Directories="obj" />
+    <Exec Command="git rev-list --count HEAD" 
+          ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="CommitCount" />
+    </Exec>
+
+    <PropertyGroup>
+      <GitCommitInfoPropsContent>
+&lt;Project ToolsVersion=&quot;15.0&quot;&gt;
+    &lt;PropertyGroup&gt;
+        &lt;CommitCount&gt;$(CommitCount)&lt;/CommitCount&gt;
+    &lt;/PropertyGroup&gt;
+&lt;/Project&gt;
+      </GitCommitInfoPropsContent>
+    </PropertyGroup>
+
+    <WriteLinesToFile File="obj/CommitCount.props"
+                      Lines="$(GitCommitInfoPropsContent)"
+                      Overwrite="true" />
+  </Target>
+</Project>
