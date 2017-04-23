@@ -6,6 +6,7 @@
     <AssemblyOriginatorKeyFile>../../tools/Key.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <Version>0.1.0-alpha-$(CommitCount)</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.DotNet.ProjectJsonMigration\Microsoft.DotNet.ProjectJsonMigration.csproj" />
