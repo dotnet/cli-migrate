@@ -9,7 +9,12 @@
   </Target>
 
   <Target Name="DoPublish">
-    <MSBuild Projects="src/Microsoft.DotNet.Tools.MigrateCommand/Microsoft.DotNet.Tools.MigrateCommand.csproj" Targets="pack" Properties="NoBuild=true" />
+    <MSBuild Projects="src/Microsoft.DotNet.Tools.MigrateCommand/Microsoft.DotNet.Tools.MigrateCommand.csproj" Targets="pack" Properties="NoBuild=true"/>
+  </Target>
+
+  <Target Name="Compile">
+    <MSBuild Projects="cli-migrate.sln" Targets="restore" />
+    <MSBuild Projects="cli-migrate.sln" Targets="build" />
   </Target>
 
   <Target Name="MakeVersionProps">
