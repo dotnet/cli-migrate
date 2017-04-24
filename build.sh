@@ -33,9 +33,6 @@ export DOTNET_INSTALL_DIR="$REPOROOT/.dotnet"
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 
 ARCHITECTURE="x64"
-# Use a repo-local install directory (but not the artifacts directory because that gets cleaned a lot
-[ -z "$DOTNET_INSTALL_DIR_PJ" ] && export DOTNET_INSTALL_DIR_PJ=$REPOROOT/.dotnet_stage0PJ
-[ -d "$DOTNET_INSTALL_DIR_PJ" ] || mkdir -p $DOTNET_INSTALL_DIR_PJ
 
 # During xplat bootstrapping, disable HTTP parallelism to avoid fatal restore timeouts.
 export __INIT_TOOLS_RESTORE_ARGS="$__INIT_TOOLS_RESTORE_ARGS --disable-parallel"
@@ -67,35 +64,17 @@ download() {
 }
 
 DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
-toolsLocalPath="$REPOROOT/build_tools"
-if [ ! -z $BOOTSTRAP_INSTALL_DIR]; then
-    toolsLocalPath = $BOOTSTRAP_INSTALL_DIR
-fi
-bootStrapperPath="$toolsLocalPath/bootstrap.sh"
-dotnetInstallPath="$toolsLocalPath/dotnet-install.sh"
-if [ ! -f $bootStrapperPath ]; then
-    if [ ! -d $toolsLocalPath ]; then
-        mkdir $toolsLocalPath
-    fi
-    download "https://raw.githubusercontent.com/dotnet/buildtools/master/bootstrap/bootstrap.sh" "$bootStrapperPath"
-    chmod u+x $bootStrapperPath
-fi
-
-$bootStrapperPath --dotNetInstallBranch master --repositoryRoot "$REPOROOT" --toolsLocalPath "$toolsLocalPath" --cliInstallPath $DOTNET_INSTALL_DIR_PJ --architecture $ARCHITECTURE >bootstrap.log
-EXIT_CODE=$?
-if [ $EXIT_CODE != 0 ]; then
-    echo "run-build: Error: Boot-strapping failed with exit code $EXIT_CODE, see bootstrap.log for more information." >&2
-    exit $EXIT_CODE
-fi
 
 # install dotnet cli latest master build
 if [ ! -d "$DOTNET_INSTALL_DIR" ]; then
     mkdir $DOTNET_INSTALL_DIR
 fi
-
-curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --install-dir $DOTNET_INSTALL_DIR --channel master -version 1.0.3
-
 PATH="$DOTNET_INSTALL_DIR:$PATH"
+[ -z "$DOTNET_INSTALL_DIR_PJ" ] && export DOTNET_INSTALL_DIR_PJ=$REPOROOT/.dotnet_stage0PJ
+[ -d "$DOTNET_INSTALL_DIR_PJ" ] || mkdir -p $DOTNET_INSTALL_DIR_PJ
+
+curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --install-dir "$DOTNET_INSTALL_DIR_PJ" --channel master -version 1.0.0-preview2-1-003177
+curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --install-dir "$DOTNET_INSTALL_DIR" --channel master -version 1.0.3
 
 dotnet msbuild build.proj /t:MakeVersionProps
 dotnet msbuild build.proj /v:diag /fl /flp:v=diag "${args[@]}"
