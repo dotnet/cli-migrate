@@ -9,7 +9,7 @@ using Microsoft.DotNet.Internal.ProjectModel.Graph;
 using System.Linq;
 using System.IO;
 using Newtonsoft.Json.Linq;
-using Microsoft.DotNet.Cli.Sln.Internal;
+using Microsoft.DotNet.ProjectJsonMigration.SolutionFile;
 using Microsoft.DotNet.Tools.Common;
 using NuGet.Frameworks;
 using NuGet.LibraryModel;

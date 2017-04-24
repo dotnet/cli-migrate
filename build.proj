@@ -9,7 +9,8 @@
   </Target>
 
   <Target Name="DoPublish">
-    <MSBuild Projects="src/Microsoft.DotNet.Tools.MigrateCommand/Microsoft.DotNet.Tools.MigrateCommand.csproj" Targets="pack" Properties="NoBuild=true"/>
+    <MSBuild Projects="src/Microsoft.DotNet.Tools.MigrateCommand/Microsoft.DotNet.Tools.MigrateCommand.csproj" Targets="pack" Properties="NoBuild=true;IncludeSymbols=true;IncludeSource=true"/>
+    <MSBuild Projects="src/Microsoft.DotNet.ProjectJsonMigration/Microsoft.DotNet.ProjectJsonMigration.csproj" Targets="pack" Properties="NoBuild=true;IncludeSymbols=true;IncludeSource=true"/>    
   </Target>
 
   <Target Name="Compile">

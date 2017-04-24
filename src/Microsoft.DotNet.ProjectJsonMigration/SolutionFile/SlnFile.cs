@@ -33,10 +33,10 @@ using System.IO;
 using System.Collections;
 using System.Globalization;
 using System.Reflection;
-using Microsoft.DotNet.Cli.Sln.Internal.FileManipulation;
+using Microsoft.DotNet.ProjectJsonMigration.SolutionFile.FileManipulation;
 using Microsoft.DotNet.Tools.Common;
 
-namespace Microsoft.DotNet.Cli.Sln.Internal
+namespace Microsoft.DotNet.ProjectJsonMigration.SolutionFile
 {
     public class SlnFile
     {

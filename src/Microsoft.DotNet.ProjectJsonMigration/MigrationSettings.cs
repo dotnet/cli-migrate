@@ -3,7 +3,7 @@
 
 using Microsoft.Build.Construction;
 using Microsoft.Build.Evaluation;
-using Microsoft.DotNet.Cli.Sln.Internal;
+using Microsoft.DotNet.ProjectJsonMigration.SolutionFile;
 
 namespace Microsoft.DotNet.ProjectJsonMigration
 {
@@ -21,10 +21,10 @@ namespace Microsoft.DotNet.ProjectJsonMigration
             string projectDirectory,
             string outputDirectory,
             string msBuildProjectTemplatePath,
-            string projectXprojFilePath=null,
-            string sdkDefaultsFilePath=null,
-            SlnFile solutionFile=null) : this(
-                projectDirectory, outputDirectory, projectXprojFilePath, sdkDefaultsFilePath, solutionFile)
+            string projectXprojFilePath = null,
+            string sdkDefaultsFilePath = null,
+            SlnFile solutionFile = null) : this(
+            projectDirectory, outputDirectory, projectXprojFilePath, sdkDefaultsFilePath, solutionFile)
         {
             MSBuildProjectTemplatePath = msBuildProjectTemplatePath;
             MSBuildProjectTemplate = ProjectRootElement.Open(
@@ -39,7 +39,7 @@ namespace Microsoft.DotNet.ProjectJsonMigration
             ProjectRootElement msBuildProjectTemplate,
             string projectXprojFilePath = null,
             string sdkDefaultsFilePath = null) : this(
-                projectDirectory, outputDirectory, projectXprojFilePath, sdkDefaultsFilePath, null)
+            projectDirectory, outputDirectory, projectXprojFilePath, sdkDefaultsFilePath, null)
         {
             MSBuildProjectTemplate = msBuildProjectTemplate != null ? msBuildProjectTemplate.DeepClone() : null;
         }
@@ -74,6 +74,5 @@ namespace Microsoft.DotNet.ProjectJsonMigration
                 projectXprojFilePath,
                 sdkDefaultsFilePath);
         }
-
     }
 }
