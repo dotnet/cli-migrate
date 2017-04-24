@@ -28,7 +28,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Microsoft.DotNet.Cli.Sln.Internal.FileManipulation
+namespace Microsoft.DotNet.ProjectJsonMigration.SolutionFile.FileManipulation
 {
     static internal class FileUtil
     {
