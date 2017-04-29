@@ -1,9 +1,9 @@
 // Copyright (c) .NET Foundation and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace Microsoft.DotNet.ProjectJsonMigration
 {
@@ -12,9 +12,11 @@ namespace Microsoft.DotNet.ProjectJsonMigration
         public void AddDotnetSupportedPackageVersions(
             IDictionary<PackageDependencyInfo, PackageDependencyInfo> projectDependenciesPackages)
         {
-            var dotnetSupportedPackageVersionsPath =
-                Path.Combine(AppContext.BaseDirectory, "dotnet-supported-package-versions.csv");
-            using (var reader = new StreamReader(File.OpenRead(dotnetSupportedPackageVersionsPath)))
+            var packageVersionsCsv = "dotnet-supported-package-versions.csv";
+            var thisAssembly = typeof(DotnetSupportedPackageVersionsCsvProvider).GetTypeInfo().Assembly;
+            using (var reader =
+                new StreamReader(
+                    thisAssembly.GetManifestResourceStream("Microsoft.DotNet.ProjectJsonMigration." + packageVersionsCsv)))
             {
                 SkipHeader(reader);
                 while (!reader.EndOfStream)
@@ -40,7 +42,7 @@ namespace Microsoft.DotNet.ProjectJsonMigration
                             });
                     }
 
-                    if(HasVersion(ftsVersion))
+                    if (HasVersion(ftsVersion))
                     {
                         var version = HasVersion(ltsVersion) ? $"({ltsVersion},{ftsVersion})" : $"[,{ftsVersion})";
                         projectDependenciesPackages.Add(
