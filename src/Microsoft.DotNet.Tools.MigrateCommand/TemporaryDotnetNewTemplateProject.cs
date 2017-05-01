@@ -54,7 +54,7 @@ namespace Microsoft.DotNet.Tools.MigrateCommand
             }
             Directory.CreateDirectory(tempDir);
 
-            _dotnetCoreTemplateCreator.CreateWithWithEphemeralHiveAndNoRestore("console", tempDir, tempDir);
+            _dotnetCoreTemplateCreator.CreateWithEphemeralHiveAndNoRestore("console", tempDir, tempDir);
 
             return tempDir;
         }

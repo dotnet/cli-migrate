@@ -9,7 +9,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
 
     public class CallStage0DotnetNewToAddTemplate : ICanCreateDotnetCoreTemplate
     {
-        public void CreateWithWithEphemeralHiveAndNoRestore(
+        public void CreateWithEphemeralHiveAndNoRestore(
             string templateName,
             string outputDirectory,
             string workingDirectory)
