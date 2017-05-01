@@ -2,6 +2,6 @@
 {
     public interface ICanCreateDotnetCoreTemplate
     {
-        void CreateWithWithEphemeralHiveAndNoRestore(string templateName, string outputDirectory, string workingDirectory);
+        void CreateWithEphemeralHiveAndNoRestore(string templateName, string outputDirectory, string workingDirectory);
     }
 }
