@@ -21,8 +21,14 @@
   <Target Name="MakeVersionProps">
     <MakeDir Condition="!Exists('obj')"
              Directories="obj" />
-    <Exec Command="git rev-list --count HEAD" 
-          ConsoleToMSBuild="true">
+
+    <PropertyGroup>
+      <GitInfoCommitCount Condition="'$(COMMIT_COUNT)' != ''">$(COMMIT_COUNT)</GitInfoCommitCount>
+    </PropertyGroup>
+
+    <Exec Command="git rev-list --count HEAD"
+          ConsoleToMSBuild="true"
+          Condition="'$(GitInfoCommitCount)' == ''">
       <Output TaskParameter="ConsoleOutput" PropertyName="GitInfoCommitCount" />
     </Exec>
 
