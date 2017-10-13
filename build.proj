@@ -18,11 +18,29 @@
     <MSBuild Projects="cli-migrate.sln" Targets="build" />
   </Target>
 
+  <Target Name="BuildForCli">
+    <CallTarget Targets="MakeVersionProps" />
+
+    <ItemGroup>
+      <ProjectsForCli Include="src/Microsoft.DotNet.Tools.MigrateCommand/Microsoft.DotNet.Tools.MigrateCommand.csproj" />
+      <ProjectsForCli Include="src/Microsoft.DotNet.ProjectJsonMigration/Microsoft.DotNet.ProjectJsonMigration.csproj" />
+    </ItemGroup>
+
+    <MSBuild Projects="@(ProjectsForCli)" Targets="Restore" />
+    <MSBuild Projects="@(ProjectsForCli)" Targets="Pack" Properties="IncludeSymbols=true;IncludeSource=true;PackageOutputPath=$(MSBuildThisFileDirectory)artifacts/packages/" />
+  </Target>
+
   <Target Name="MakeVersionProps">
     <MakeDir Condition="!Exists('obj')"
              Directories="obj" />
-    <Exec Command="git rev-list --count HEAD" 
-          ConsoleToMSBuild="true">
+
+    <PropertyGroup>
+      <GitInfoCommitCount Condition="'$(COMMIT_COUNT)' != ''">$(COMMIT_COUNT)</GitInfoCommitCount>
+    </PropertyGroup>
+
+    <Exec Command="git rev-list --count HEAD"
+          ConsoleToMSBuild="true"
+          Condition="'$(GitInfoCommitCount)' == ''">
       <Output TaskParameter="ConsoleOutput" PropertyName="GitInfoCommitCount" />
     </Exec>
 
