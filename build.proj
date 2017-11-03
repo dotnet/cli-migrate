@@ -4,8 +4,8 @@
   <Target Name="DoBuild">
     <MSBuild Projects="cli-migrate.sln" Targets="restore" />
     <MSBuild Projects="cli-migrate.sln" Targets="build" />
-    <Exec Command="dotnet test test/dotnet-migrate.Tests/dotnet-migrate.Tests.csproj -l:trx" />
-    <Exec Command="dotnet test test/Microsoft.DotNet.ProjectJsonMigration.Tests/Microsoft.DotNet.ProjectJsonMigration.Tests.csproj -l:trx" />
+    <Exec Command="dotnet test test/dotnet-migrate.Tests/dotnet-migrate.Tests.csproj -l:trx" Condition="'$(SkipTests)' != 'true'" />
+    <Exec Command="dotnet test test/Microsoft.DotNet.ProjectJsonMigration.Tests/Microsoft.DotNet.ProjectJsonMigration.Tests.csproj -l:trx" Condition="'$(SkipTests)' != 'true'" />
   </Target>
 
   <Target Name="DoPublish">
