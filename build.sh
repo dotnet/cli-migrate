@@ -78,4 +78,4 @@ curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --install-dir "
 curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --install-dir "$DOTNET_INSTALL_DIR" --version 1.1.4
 
 dotnet msbuild build.proj /t:MakeVersionProps
-dotnet msbuild build.proj /v:diag /fl /flp:v=diag "${args[@]}"
+dotnet msbuild build.proj /v:n /fl /flp:v=n "${args[@]}"

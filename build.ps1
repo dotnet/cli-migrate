@@ -44,4 +44,4 @@ Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile "$DOTNET
 $env:PATH = "$DOTNET_INSTALL_DIR;$env:PATH"
 
 & dotnet msbuild build.proj /t:MakeVersionProps
-& dotnet msbuild build.proj /v:diag /fl /flp:v=diag $ExtraParameters
+& dotnet msbuild build.proj /v:n  /fl /flp:v=n $ExtraParameters
