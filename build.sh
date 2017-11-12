@@ -26,6 +26,7 @@ args=("$@")
 temp="${args[@]}"
 args=($temp)
 
+export REPOROOT="$REPOROOT"
 export XDG_DATA_HOME="$REPOROOT/.nuget/packages"
 export NUGET_PACKAGES="$REPOROOT/.nuget/packages"
 export NUGET_HTTP_CACHE_PATH="$REPOROOT/.nuget/packages"
@@ -73,8 +74,8 @@ PATH="$DOTNET_INSTALL_DIR:$PATH"
 [ -z "$DOTNET_INSTALL_DIR_PJ" ] && export DOTNET_INSTALL_DIR_PJ=$REPOROOT/.dotnet_stage0PJ
 [ -d "$DOTNET_INSTALL_DIR_PJ" ] || mkdir -p $DOTNET_INSTALL_DIR_PJ
 
-curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --install-dir "$DOTNET_INSTALL_DIR_PJ" --channel master -version 1.0.0-preview2-1-003177
-curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --install-dir "$DOTNET_INSTALL_DIR" --channel master -version 1.0.3
+curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --install-dir "$DOTNET_INSTALL_DIR_PJ" --version 1.0.0-preview2-1-003177
+curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --install-dir "$DOTNET_INSTALL_DIR" --version 1.1.4
 
 dotnet msbuild build.proj /t:MakeVersionProps
 dotnet msbuild build.proj /v:diag /fl /flp:v=diag "${args[@]}"

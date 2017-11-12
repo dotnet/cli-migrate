@@ -11,6 +11,7 @@ $ProgressPreference = "SilentlyContinue"
 $RepoRoot = "$PSScriptRoot"
 $DOTNET_INSTALL_DIR = "$REPOROOT/.dotnet"
 
+$env:REPOROOT="$RepoRoot"
 $env:XDG_DATA_HOME = "$REPOROOT/.nuget/packages"
 $env:NUGET_PACKAGES = "$REPOROOT/.nuget/packages"
 $env:NUGET_HTTP_CACHE_PATH = "$REPOROOT/.nuget/packages"
@@ -36,9 +37,9 @@ if (-Not (Test-Path $DOTNET_INSTALL_DIR)) {
     New-Item -Type "directory" -Path $DOTNET_INSTALL_DIR 
 }
 
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.ps1" -OutFile "$DOTNET_INSTALL_DIR/dotnet-install.ps1"
-& $DOTNET_INSTALL_DIR/dotnet-install.ps1 -Channel "master" -InstallDir "$env:DOTNET_INSTALL_DIR_PJ" -Version 1.0.0-preview2-1-003177
-& $DOTNET_INSTALL_DIR/dotnet-install.ps1 -Channel "master" -InstallDir "$DOTNET_INSTALL_DIR" -Version 1.0.3
+Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile "$DOTNET_INSTALL_DIR/dotnet-install.ps1"
+& $DOTNET_INSTALL_DIR/dotnet-install.ps1 -InstallDir "$env:DOTNET_INSTALL_DIR_PJ" -Version 1.0.0-preview2-1-003177
+& $DOTNET_INSTALL_DIR/dotnet-install.ps1 -InstallDir "$DOTNET_INSTALL_DIR" -Version 1.1.4
 
 $env:PATH = "$DOTNET_INSTALL_DIR;$env:PATH"
 
