@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)\PushToBlobFeed.targets" />
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.0</TargetFramework>

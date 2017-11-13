@@ -31,8 +31,8 @@
     <MSBuild Projects="@(ProjectsForCli)" Targets="Pack" Properties="IncludeSymbols=true;IncludeSource=true;PackageOutputPath=$(MSBuildThisFileDirectory)artifacts/packages/" />
   </Target>
   
-  <Target Name="PublishToBlobFeed">
-    <Exec Command="dotnet msbuild tools/PublishToBlobFeed.proj /t:PublishNupkgToBlobFeed /p:Configuration=$(Configuration) /p:BlobFeedAccessToken=$(BlobFeedAccessToken) /p:ExpectedFeedUrl=$(ExpectedFeedUrl)" />
+  <Target Name="PushToBlobFeed">
+    <Exec Command="dotnet msbuild tools/BuildTools.proj /t:PushToBlobFeed /p:Configuration=$(Configuration) /p:BlobFeedAccessToken=$(BlobFeedAccessToken) /p:ExpectedFeedUrl=$(ExpectedFeedUrl)" />
   </Target>
   
   <Target Name="MakeVersionProps">
