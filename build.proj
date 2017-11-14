@@ -3,7 +3,7 @@
 
   <Target Name="DoBuild">
     <MSBuild Projects="cli-migrate.sln" Targets="restore" />
-    <Exec Command="dotnet restore tools/BuildTools.proj /p:Configuration=$(Configuration)" />
+    <Exec Command="dotnet restore tools/BuildTools.csproj /p:Configuration=$(Configuration)" />
     <MSBuild Projects="cli-migrate.sln" Targets="build" />
     <Exec Command="dotnet test test/dotnet-migrate.Tests/dotnet-migrate.Tests.csproj -l:trx" Condition="'$(SkipTests)' != 'true'" />
     <Exec Command="dotnet test test/Microsoft.DotNet.ProjectJsonMigration.Tests/Microsoft.DotNet.ProjectJsonMigration.Tests.csproj -l:trx" Condition="'$(SkipTests)' != 'true'" />
@@ -32,7 +32,7 @@
   </Target>
   
   <Target Name="PushToBlobFeed">
-    <Exec Command="dotnet msbuild tools/BuildTools.proj /t:PushToBlobFeed /p:Configuration=$(Configuration) /p:BlobFeedAccessToken=$(BlobFeedAccessToken) /p:ExpectedFeedUrl=$(ExpectedFeedUrl)" />
+    <Exec Command="dotnet msbuild tools/BuildTools.csproj /t:PushToBlobFeed /p:Configuration=$(Configuration) /p:BlobFeedAccessToken=$(BlobFeedAccessToken) /p:ExpectedFeedUrl=$(ExpectedFeedUrl)" />
   </Target>
   
   <Target Name="MakeVersionProps">
