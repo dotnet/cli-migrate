@@ -3,9 +3,10 @@
 
   <Target Name="DoBuild">
     <MSBuild Projects="cli-migrate.sln" Targets="restore" />
+    <Exec Command="dotnet restore tools/BuildTools.proj /p:Configuration=$(Configuration)" />
     <MSBuild Projects="cli-migrate.sln" Targets="build" />
-    <Exec Command="dotnet test test/dotnet-migrate.Tests/dotnet-migrate.Tests.csproj -l:trx" />
-    <Exec Command="dotnet test test/Microsoft.DotNet.ProjectJsonMigration.Tests/Microsoft.DotNet.ProjectJsonMigration.Tests.csproj -l:trx" />
+    <Exec Command="dotnet test test/dotnet-migrate.Tests/dotnet-migrate.Tests.csproj -l:trx" Condition="'$(SkipTests)' != 'true'" />
+    <Exec Command="dotnet test test/Microsoft.DotNet.ProjectJsonMigration.Tests/Microsoft.DotNet.ProjectJsonMigration.Tests.csproj -l:trx" Condition="'$(SkipTests)' != 'true'" />
   </Target>
 
   <Target Name="DoPublish">
@@ -29,7 +30,11 @@
     <MSBuild Projects="@(ProjectsForCli)" Targets="Restore" />
     <MSBuild Projects="@(ProjectsForCli)" Targets="Pack" Properties="IncludeSymbols=true;IncludeSource=true;PackageOutputPath=$(MSBuildThisFileDirectory)artifacts/packages/" />
   </Target>
-
+  
+  <Target Name="PushToBlobFeed">
+    <Exec Command="dotnet msbuild tools/BuildTools.proj /t:PushToBlobFeed /p:Configuration=$(Configuration) /p:BlobFeedAccessToken=$(BlobFeedAccessToken) /p:ExpectedFeedUrl=$(ExpectedFeedUrl)" />
+  </Target>
+  
   <Target Name="MakeVersionProps">
     <MakeDir Condition="!Exists('obj')"
              Directories="obj" />
