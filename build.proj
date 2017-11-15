@@ -1,6 +1,10 @@
 <Project DefaultTargets="BuildAll">
   <Target Name="BuildAll" DependsOnTargets="DoBuild;DoPublish" />
 
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+  </PropertyGroup>
+  
   <Target Name="DoBuild">
     <MSBuild Projects="cli-migrate.sln" Targets="restore" />
     <Exec Command="dotnet restore tools/BuildTools.csproj /p:Configuration=$(Configuration)" />

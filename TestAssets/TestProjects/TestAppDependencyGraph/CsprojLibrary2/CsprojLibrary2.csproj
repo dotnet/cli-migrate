@@ -4,6 +4,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>netstandard1.5</TargetFramework>
+    <RestoreSources>$(RestoreSources)</RestoreSources>
   </PropertyGroup>
 
   <ItemGroup>
