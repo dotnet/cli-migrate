@@ -4,7 +4,6 @@
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AssemblyName>dotnet-migrate.Tests</AssemblyName>
     <PackageTargetFallback>$(PackageTargetFallback);netstandardapp1.5;dotnet5.4;portable-net451+win8</PackageTargetFallback>
-    <RestoreSources>$(RestoreSources)</RestoreSources>
   </PropertyGroup>
 
   <ItemGroup>

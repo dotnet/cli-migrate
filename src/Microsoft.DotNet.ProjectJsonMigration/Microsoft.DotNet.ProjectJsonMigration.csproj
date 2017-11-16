@@ -7,7 +7,6 @@
     <SignAssembly>true</SignAssembly>
     <Version>$(CliMigrateVersion)</Version>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <RestoreSources>$(RestoreSources)</RestoreSources>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="sdkdefaults.json" />
