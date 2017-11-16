@@ -4,7 +4,6 @@
     <TargetFramework>netstandard1.5</TargetFramework>
     <AssemblyName>TestLibrary</AssemblyName>
     <PackageId>TestLibrary</PackageId>
-    <RestoreSources>$(RestoreSources)</RestoreSources>
   </PropertyGroup>
 
   <ItemGroup>
