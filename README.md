@@ -2,7 +2,11 @@
 
 This repository contains the code for the `dotnet migrate` command that was previously under [dotnet/cli](https://github.com/dotnet/cli), and that migrates "project.json" based projects to "csproj" based projects.
 
-Latest Daily Build<br>*master*<br>[![][win-x86-build-badge]][win-x86-build]
+## Build Status
+
+| Latest Daily Build<br>*master* |
+|:------:|
+| [![][win-x64-build-badge]][win-x64-build] |
 
 [win-x64-build-badge]: https://devdiv.visualstudio.com/_apis/public/build/definitions/0bdbc590-a062-4c3f-b0f6-9383f67865ee/5949/badge
 [win-x64-build]: https://devdiv.visualstudio.com/DevDiv/_build?_a=completed&definitionId=5949
