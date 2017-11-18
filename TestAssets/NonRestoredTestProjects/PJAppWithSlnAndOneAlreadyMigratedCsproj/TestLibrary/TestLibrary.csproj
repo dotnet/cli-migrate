@@ -4,6 +4,7 @@
     <TargetFramework>netstandard1.5</TargetFramework>
     <AssemblyName>TestLibrary</AssemblyName>
     <PackageId>TestLibrary</PackageId>
+    <RestoreSources>https://api.nuget.org/v3/index.json</RestoreSources>
   </PropertyGroup>
 
   <ItemGroup>
