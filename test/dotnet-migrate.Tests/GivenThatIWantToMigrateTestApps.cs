@@ -758,7 +758,7 @@ namespace Microsoft.DotNet.Migration.Tests
         {
             File.Copy(
                 Path.Combine(Directory.GetCurrentDirectory(), "NuGet.tempaspnetpatch.config"),
-                projectDirectory.GetFile("NuGet.Config").FullName);
+                projectDirectory.GetFile("NuGet.Config").FullName, true);
 
             RestoreProjectJson(projectDirectory);
 
