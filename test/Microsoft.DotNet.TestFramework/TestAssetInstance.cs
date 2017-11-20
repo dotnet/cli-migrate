@@ -110,7 +110,7 @@ namespace Microsoft.DotNet.TestFramework
             var content = @"<?xml version=""1.0"" encoding=""utf-8""?>
             <configuration>
               <packageSources>
-                <add key=""dotnet-core"" value=""https://dotnet.myget.org/F/dotnet-core/api/v3/index.json"" />
+                <add key=""dotnet-core"" value=""https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json"" />
                 <add key=""test-packages"" value=""$fullpath$"" />
               </packageSources>
             </configuration>";
@@ -215,7 +215,7 @@ namespace Microsoft.DotNet.TestFramework
             var doc = XDocument.Load(source.FullName, LoadOptions.PreserveWhitespace);
             foreach (var packageSource in doc.Root.Element("packageSources").Elements("add").Attributes("value"))
             {
-                if (!Path.IsPathRooted(packageSource.Value))
+                if (!Uri.IsWellFormedUriString(packageSource.Value, UriKind.Absolute) && !Path.IsPathRooted(packageSource.Value))
                 {
                     string fullPathAtSource = Path.GetFullPath(Path.Combine(source.Directory.FullName, packageSource.Value));
                     if (!PathUtility.IsChildOfDirectory(TestAssetInfo.Root.FullName, fullPathAtSource))

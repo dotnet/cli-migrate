@@ -6,6 +6,7 @@
     <AssemblyName>subdir</AssemblyName>
     <PackageId>subdir</PackageId>
     <ProjectGuid>F8F96F4A-F10C-4C54-867C-A9EFF55494C8</ProjectGuid>
+    <RestoreSources>https://api.nuget.org/v3/index.json</RestoreSources>
   </PropertyGroup>
 
   <ItemGroup>
