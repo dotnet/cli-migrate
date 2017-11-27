@@ -215,7 +215,7 @@ namespace Microsoft.DotNet.TestFramework
             var doc = XDocument.Load(source.FullName, LoadOptions.PreserveWhitespace);
             foreach (var packageSource in doc.Root.Element("packageSources").Elements("add").Attributes("value"))
             {
-                if (!Uri.IsWellFormedUriString(packageSource.Value, UriKind.Absolute) && !Path.IsPathRooted(packageSource.Value))
+                if (!Path.IsPathRooted(packageSource.Value))
                 {
                     string fullPathAtSource = Path.GetFullPath(Path.Combine(source.Directory.FullName, packageSource.Value));
                     if (!PathUtility.IsChildOfDirectory(TestAssetInfo.Root.FullName, fullPathAtSource))
