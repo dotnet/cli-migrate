@@ -23,7 +23,7 @@ You can simply `git clone` this project to get started. It is recommended that y
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for information on contributing to this project.
 
-This project has adopted the code of conduct defined by the [Contributor Covenant](http://contributor-covenant.org/) 
+This project has adopted the code of conduct defined by the [Contributor Covenant](http://contributor-covenant.org/)
 to clarify expected behavior in our community. For more information, see the [.NET Foundation Code of Conduct](http://www.dotnetfoundation.org/code-of-conduct).
 
 ## License
