@@ -1,0 +1,19 @@
+{
+    "sign": [
+        {
+            "certificate": "Microsoft402",
+            "strongName": "MsSharedLib72",
+            "values": [
+                "bin/Microsoft.DotNet.ProjectJsonMigration/*/Microsoft.DotNet.ProjectJsonMigration.dll",
+                "bin/Microsoft.DotNet.Tools.MigrateCommand/*/Microsoft.DotNet.Tools.MigrateCommand.dll"
+            ]
+        },
+        {
+            "certificate": null,
+            "strongName": null,
+            "values": [
+                "packages/*.nupkg"
+            ]
+        }
+    ]
+}
