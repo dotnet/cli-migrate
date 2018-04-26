@@ -8,7 +8,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
     public sealed class RestoreProjectJsonCommand : TestCommand
     {
         public RestoreProjectJsonCommand()
-            : base(new RepoDirectoriesProvider().PjDotnet)
+            : base(RepoDirectoriesProvider.DotNetProjectJsonPath)
         {
         }
 

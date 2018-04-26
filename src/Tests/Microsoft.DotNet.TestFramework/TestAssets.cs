@@ -47,12 +47,12 @@ namespace Microsoft.DotNet.TestFramework
 
             if (!dotnetCsprojExe.Exists)
             {
-                throw new FileNotFoundException("Csproj dotnet executable must exist", dotnetCsprojExe.FullName);
+                throw new FileNotFoundException($"Csproj dotnet executable must exist: '{dotnetCsprojExe.FullName}'", dotnetCsprojExe.FullName);
             }
 
             if (!dotnetProjectJsonExe.Exists)
             {
-                throw new FileNotFoundException("project.json dotnet executable must exist", dotnetProjectJsonExe.FullName);
+                throw new FileNotFoundException($"project.json dotnet executable must exist: '{dotnetProjectJsonExe.FullName}'", dotnetProjectJsonExe.FullName);
             }
 
             _root = assetsRoot;

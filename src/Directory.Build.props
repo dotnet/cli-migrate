@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <Import Project="..\Directory.Build.props" />
-  <Import Project="$(RepoToolsetDir)Settings.props" />
 
   <PropertyGroup>
     <StrongNameKeyId>MicrosoftAspNet</StrongNameKeyId>
@@ -20,10 +19,6 @@
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(IsTestProject)' == 'true'">
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
 </Project>
