@@ -27,17 +27,17 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <_RepoDirectoriesFile>$(IntermediateOutputPath)\RepoDirectories.g.cs</_RepoDirectoriesFile>
+    <_RepoDirectoriesFile>RepoDirectories.g.cs</_RepoDirectoriesFile>
   </PropertyGroup>
 
-  <Target Name="_GenerateRepoDirectoriesAttribute" BeforeTargets="CoreCompile" Outputs="$(_RepoDirectoriesFile)">
+  <Target Name="_GenerateRepoDirectoriesAttribute" BeforeTargets="CoreCompile" Outputs="$(IntermediateOutputPath)$(_RepoDirectoriesFile)">
     <ItemGroup>
       <_Attribute Include="Microsoft.DotNet.Tools.Test.Utilities.RepoDirectoriesAttribute">
         <_Parameter1>$(RepoRoot)</_Parameter1>
       </_Attribute>
     </ItemGroup>
     
-    <WriteCodeFragment AssemblyAttributes="@(_Attribute)" Language="$(Language)" OutputFile="$(_RepoDirectoriesFile)">
+    <WriteCodeFragment AssemblyAttributes="@(_Attribute)" Language="$(Language)" OutputFile="$(IntermediateOutputPath)$(_RepoDirectoriesFile)">
       <Output TaskParameter="OutputFile" ItemName="Compile" />
       <Output TaskParameter="OutputFile" ItemName="FileWrites" />    
     </WriteCodeFragment>
