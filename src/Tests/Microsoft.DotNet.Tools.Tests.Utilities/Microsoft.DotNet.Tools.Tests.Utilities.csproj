@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="$(FluentAssertionsVersion)" />
-    <PackageReference Include="Microsoft.DotNet.Cli.CommandLine" Version="$(MicrosoftDotNetCliCommandLineVersion)" />
-    <PackageReference Include="Microsoft.DotNet.Cli.Utils" Version="$(MicrosoftDotNetCliUtilsVersion)" />
-    <PackageReference Include="Microsoft.DotNet.InternalAbstractions" Version="$(MicrosoftDotNetInternalAbstractionsVersion)" />
-    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="$(MicrosoftDotNetPlatformAbstractionsVersion)" />
+    <PackageReference Include="FluentAssertions" Version="$(FluentAssertionsPackageVersion)" />
+    <PackageReference Include="Microsoft.DotNet.Cli.CommandLine" Version="$(MicrosoftDotNetCliCommandLinePackageVersion)" />
+    <PackageReference Include="Microsoft.DotNet.Cli.Utils" Version="$(MicrosoftDotNetCliUtilsPackageVersion)" />
+    <PackageReference Include="Microsoft.DotNet.InternalAbstractions" Version="$(MicrosoftDotNetInternalAbstractionsPackageVersion)" />
+    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="$(MicrosoftDotNetPlatformAbstractionsPackageVersion)" />
     <PackageReference Include="xunit" Version="$(XUnitVersion)" />
   </ItemGroup>
 

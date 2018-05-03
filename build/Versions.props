@@ -14,21 +14,21 @@
 
   <!-- Production Dependencies -->
   <PropertyGroup>
-    <MicrosoftCodeAnalysisCSharpVersion>2.1.0</MicrosoftCodeAnalysisCSharpVersion>
-    <MicrosoftDotNetCliUtilsVersion>1.0.1</MicrosoftDotNetCliUtilsVersion>
-    <NuGetPackagingCoreVersion>4.3.0-rtm-4324</NuGetPackagingCoreVersion>
-    <NuGetProjectModelVersion>4.3.0-rtm-4324</NuGetProjectModelVersion>
-    <SystemCollectionsSpecializedVersion>4.3.0</SystemCollectionsSpecializedVersion>
+    <MicrosoftCodeAnalysisCSharpPackageVersion>2.1.0</MicrosoftCodeAnalysisCSharpPackageVersion>
+    <MicrosoftDotNetCliUtilsPackageVersion>1.0.1</MicrosoftDotNetCliUtilsPackageVersion>
+    <NuGetPackagingCorePackageVersion>4.3.0-rtm-4324</NuGetPackagingCorePackageVersion>
+    <NuGetProjectModelPackageVersion>4.3.0-rtm-4324</NuGetProjectModelPackageVersion>
+    <SystemCollectionsSpecializedPackageVersion>4.3.0</SystemCollectionsSpecializedPackageVersion>
   </PropertyGroup>
 
   <!-- Test Dependencies -->
   <PropertyGroup>
-    <FluentAssertionsVersion>4.18.0</FluentAssertionsVersion>
-    <MicrosoftDotNetCliCommandLineVersion>0.1.0-alpha-142</MicrosoftDotNetCliCommandLineVersion>
-    <MicrosoftDotNetInternalAbstractionsVersion>1.0.500-preview2-1-003177</MicrosoftDotNetInternalAbstractionsVersion>
-    <MicrosoftDotNetPlatformAbstractionsVersion>1.0.3</MicrosoftDotNetPlatformAbstractionsVersion>
-    <SystemDiagnosticsProcessVersion>4.3.0</SystemDiagnosticsProcessVersion>
-    <SystemReflectionTypeExtensionsVersion>4.3.0</SystemReflectionTypeExtensionsVersion>
+    <FluentAssertionsPackageVersion>4.18.0</FluentAssertionsPackageVersion>
+    <MicrosoftDotNetCliCommandLinePackageVersion>0.1.0-alpha-142</MicrosoftDotNetCliCommandLinePackageVersion>
+    <MicrosoftDotNetInternalAbstractionsPackageVersion>1.0.500-preview2-1-003177</MicrosoftDotNetInternalAbstractionsPackageVersion>
+    <MicrosoftDotNetPlatformAbstractionsPackageVersion>1.0.3</MicrosoftDotNetPlatformAbstractionsPackageVersion>
+    <SystemDiagnosticsProcessPackageVersion>4.3.0</SystemDiagnosticsProcessPackageVersion>
+    <SystemReflectionTypeExtensionsPackageVersion>4.3.0</SystemReflectionTypeExtensionsPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup>
