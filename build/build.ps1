@@ -211,7 +211,7 @@ try {
   $BuildLog = Join-Path $LogDir "Build.binlog"
   $ToolsetRestoreLog = Join-Path $LogDir "ToolsetRestore.binlog"
   $TempDir = Join-Path (Join-Path $ArtifactsDir $configuration) "tmp"
-  $GlobalJson = Get-Content(Join-Path $RepoRoot "global.json") | ConvertFrom-Json
+  $GlobalJson = Get-Content -Raw -Path (Join-Path $RepoRoot "global.json") | ConvertFrom-Json
   
   if ($projects -eq "") {
     $projects = Join-Path $RepoRoot "*.sln"
