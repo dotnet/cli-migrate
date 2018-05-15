@@ -196,7 +196,7 @@ namespace Microsoft.DotNet.Migration.Tests
             }
         }
 
-        [Fact]
+        [Fact(Skip = "flaky")]
         public void ItMigratesSolutionInTheFolderWhenWeRunMigrationInThatFolder()
         {
             var projectDirectory = TestAssets
