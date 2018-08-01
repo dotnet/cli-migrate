@@ -23,27 +23,18 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
         private TempRoot _temp;
         private static TestAssets s_testAssets;
 
-
-        protected static string RepoRoot
-        {
-            get
-            {
-                return RepoDirectoriesProvider.RepoRoot;
-            }
-        }
-
         protected static TestAssets TestAssets
         {
             get
             {
                 if (s_testAssets == null)
                 {
-                    var assetsRoot = Path.Combine(RepoRoot, "src", "Assets");
+                    var assetsRoot = RepoDirectoriesProvider.TestAssetsRoot;
 
                     s_testAssets = new TestAssets(
                         new DirectoryInfo(assetsRoot),
                         new FileInfo(new Muxer().MuxerPath),
-                        new FileInfo(new RepoDirectoriesProvider().PjDotnet)); 
+                        new FileInfo(RepoDirectoriesProvider.DotNetProjectJsonPath)); 
                 }
 
                 return s_testAssets;

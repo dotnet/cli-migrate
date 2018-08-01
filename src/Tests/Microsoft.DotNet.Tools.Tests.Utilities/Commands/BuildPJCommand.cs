@@ -27,7 +27,7 @@ namespace Microsoft.DotNet.Tools.Test.Utilities
         private DirectoryInfo _workingDirectory;
 
         public BuildPJCommand()
-            : base(new RepoDirectoriesProvider().PjDotnet)
+            : base(RepoDirectoriesProvider.DotNetProjectJsonPath)
         {
         }
 
