@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (c) .NET Foundation and contributors. All rights reserved. Licensed under the MIT license. See License.txt in the project root for full license information. -->
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project>
 
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -8,21 +8,8 @@
 
   <!-- Repo Version Information -->
   <PropertyGroup>
-    <VersionBase>1.3.1</VersionBase>
+    <VersionPrefix>1.3.1</VersionPrefix>
     <PreReleaseVersionLabel>alpha</PreReleaseVersionLabel>
-  </PropertyGroup>
-
-  <!-- Repo Toolset Features -->
-  <PropertyGroup>
-    <UsingToolMicrosoftNetCompilers>false</UsingToolMicrosoftNetCompilers>
-  </PropertyGroup>
-
-  <!-- Toolset Dependencies -->
-  <PropertyGroup>
-    <DotNetCliVersion>1.1.4</DotNetCliVersion>
-    <DotNetCliProjectJsonVersion>1.0.0-preview2-1-003177</DotNetCliProjectJsonVersion>
-    <RoslynToolsRepoToolsetVersion>1.0.0-beta-62522-01</RoslynToolsRepoToolsetVersion>
-    <VSWhereVersion>2.2.7</VSWhereVersion>
   </PropertyGroup>
 
   <!-- Production Dependencies -->
@@ -42,7 +29,13 @@
     <MicrosoftDotNetPlatformAbstractionsVersion>1.0.3</MicrosoftDotNetPlatformAbstractionsVersion>
     <SystemDiagnosticsProcessVersion>4.3.0</SystemDiagnosticsProcessVersion>
     <SystemReflectionTypeExtensionsVersion>4.3.0</SystemReflectionTypeExtensionsVersion>
-    <XUnitConsoleVersion>2.3.0</XUnitConsoleVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RestoreSources>
+      $(RestoreSources);
+      https://dotnetfeed.blob.core.windows.net/dotnet-core/packages/index.json
+    </RestoreSources>
   </PropertyGroup>
 
 </Project>

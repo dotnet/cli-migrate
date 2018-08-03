@@ -1,22 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (c) .NET Foundation and contributors. All rights reserved. Licensed under the MIT license. See License.txt in the project root for full license information. -->
-<Project>
+<Project Sdk="RoslynTools.RepoToolset">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutDirName>Tests\$(MSBuildProjectName)</OutDirName>
     <PublishOutputToSymStore>false</PublishOutputToSymStore>
   </PropertyGroup>
-
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
   <ItemGroup>
     <PackageReference Include="Microsoft.DotNet.Cli.Utils" Version="$(MicrosoftDotNetCliUtilsVersion)" />
   </ItemGroup>
-
-  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
 
 </Project>

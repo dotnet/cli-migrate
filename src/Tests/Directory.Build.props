@@ -3,22 +3,14 @@
 <Project>
 
   <PropertyGroup>
+    <!-- Add the imported props file -->
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileDirectory)..\Directory.Build.props</MSBuildAllProjects>
   </PropertyGroup>
 
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
-    <StrongNameKeyId>MicrosoftAspNet</StrongNameKeyId>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ExcludeFromSourceBuild>true</ExcludeFromSourceBuild>
   </PropertyGroup>
 
 </Project>
