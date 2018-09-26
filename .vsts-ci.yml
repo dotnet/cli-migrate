@@ -1,22 +1,15 @@
 trigger:
 - master
 
-resources:
-  repositories:
-  # shared library repository
-  - repository: arcade
-    type: github
-    endpoint: DotNet-Bot GitHub Connection
-    name: dotnet/arcade
-    ref: refs/heads/master
-
 variables:
   teamName: Roslyn-Project-System
   ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
     PB_PublishBlobFeedKey:
     PB_PublishBlobFeedUrl:
+    _DotNetPublishToBlobFeed: false
   ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
     PB_PublishBlobFeedUrl: https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json
+    _DotNetPublishToBlobFeed: true
 
 phases:
 - template: /eng/build.yml
