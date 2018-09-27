@@ -10,8 +10,11 @@ Param(
   [switch] $deploy,
   [switch] $test,
   [switch] $integrationTest,
+  [switch] $performanceTest,
   [switch] $sign,
   [switch] $pack,
+  [switch] $publish,
+  [switch] $publishBuildAssets,
   [switch] $ci,
   [switch] $prepareMachine,
   [switch] $help,
@@ -36,9 +39,12 @@ function Print-Usage() {
     Write-Host "  -deploy                 Deploy built VSIXes"
     Write-Host "  -deployDeps             Deploy dependencies (e.g. VSIXes for integration tests)"
     Write-Host "  -test                   Run all unit tests in the solution"
-    Write-Host "  -integrationTest        Run all integration tests in the solution"
-    Write-Host "  -sign                   Sign build outputs"
     Write-Host "  -pack                   Package build outputs into NuGet packages and Willow components"
+    Write-Host "  -integrationTest        Run all integration tests in the solution"
+    Write-Host "  -performanceTest        Run all performance tests in the solution"
+    Write-Host "  -sign                   Sign build outputs"
+    Write-Host "  -publish                Publish artifacts (e.g. symbols)"
+    Write-Host "  -publishBuildAssets        Push assets to BAR"
     Write-Host ""
 
     Write-Host "Advanced settings:"
@@ -75,19 +81,18 @@ function InitializeDotNetCli {
 
   # Use dotnet installation specified in DOTNET_INSTALL_DIR if it contains the required SDK version, 
   # otherwise install the dotnet CLI and SDK to repo local .dotnet directory to avoid potential permission issues.
-  if (($env:DOTNET_INSTALL_DIR -ne $null) -and (Test-Path(Join-Path $env:DOTNET_INSTALL_DIR "sdk\$($GlobalJson.sdk.version)"))) {
+  if (($env:DOTNET_INSTALL_DIR -ne $null) -and (Test-Path(Join-Path $env:DOTNET_INSTALL_DIR "sdk\$($GlobalJson.tools.dotnet)"))) {
     $dotnetRoot = $env:DOTNET_INSTALL_DIR
   } else {
     $dotnetRoot = Join-Path $RepoRoot ".dotnet"
     $env:DOTNET_INSTALL_DIR = $dotnetRoot
     
     if ($restore) {
-      InstallDotNetSdk $dotnetRoot $GlobalJson.sdk.version
+      InstallDotNetSdk $dotnetRoot $GlobalJson.tools.dotnet
     }
   }
 
-  $global:BuildDriver = Join-Path $dotnetRoot "dotnet.exe"    
-  $global:BuildArgs = "msbuild"
+  return $dotnetRoot
 }
 
 function GetDotNetInstallScript([string] $dotnetRoot) {
@@ -105,7 +110,8 @@ function InstallDotNetSdk([string] $dotnetRoot, [string] $version) {
   
   & $installScript -Version $version -InstallDir $dotnetRoot
   if ($lastExitCode -ne 0) {
-    throw "Failed to install dotnet SDK $version to '$dotnetRoot' (exit code '$lastExitCode')."
+    Write-Host "Failed to install dotnet cli (exit code '$lastExitCode')." -ForegroundColor Red
+    exit $lastExitCode
   }
 }
 
@@ -122,12 +128,11 @@ function InitializeVisualStudioBuild {
     $env:VSSDKInstall = Join-Path $vsInstallDir "VSSDK\"
   }
 
-  $global:BuildDriver = Join-Path $vsInstallDir "MSBuild\15.0\Bin\msbuild.exe"
-  $global:BuildArgs = "/nodeReuse:$(!$ci)"
+  return $vsInstallDir;
 }
 
 function LocateVisualStudio {
-  $vswhereVersion = $GlobalJson.vswhere.version
+  $vswhereVersion = $GlobalJson.tools.vswhere
   $toolsRoot = Join-Path $RepoRoot ".tools"
   $vsWhereDir = Join-Path $toolsRoot "vswhere\$vswhereVersion"
   $vsWhereExe = Join-Path $vsWhereDir "vswhere.exe"
@@ -140,15 +145,47 @@ function LocateVisualStudio {
 
   $vsInstallDir = & $vsWhereExe -latest -prerelease -property installationPath -requires Microsoft.Component.MSBuild -requires Microsoft.VisualStudio.Component.VSSDK -requires Microsoft.Net.Component.4.6.TargetingPack -requires Microsoft.VisualStudio.Component.Roslyn.Compiler -requires Microsoft.VisualStudio.Component.VSSDK
 
-  if (!(Test-Path $vsInstallDir)) {
-    throw "Failed to locate Visual Studio (exit code '$lastExitCode')."
+  if ($lastExitCode -ne 0) {
+    Write-Host "Failed to locate Visual Studio (exit code '$lastExitCode')." -ForegroundColor Red
+    exit $lastExitCode
   }
 
   return $vsInstallDir
 }
 
-function InitializeToolset {
-  $toolsetVersion = $GlobalJson.'msbuild-sdks'.'RoslynTools.RepoToolset'
+function GetBuildCommand() {
+  $tools = $GlobalJson.tools
+
+  if ((Get-Member -InputObject $tools -Name "dotnet") -ne $null) {  
+    $dotnetRoot = InitializeDotNetCli
+
+    # by default build with dotnet cli:
+    $buildDriver = Join-Path $dotnetRoot "dotnet.exe"
+    $buildArgs = "msbuild"
+  }
+
+  if ((Get-Member -InputObject $tools -Name "vswhere") -ne $null) {    
+    $vsInstallDir = InitializeVisualStudioBuild
+    
+    # Presence of vswhere.version indicates the repo needs to build using VS msbuild:
+    $buildDriver = Join-Path $vsInstallDir "MSBuild\15.0\Bin\msbuild.exe"
+    $buildArgs = "/nodeReuse:$(!$ci)"
+  }
+
+  if ($buildDriver -eq $null) {
+    Write-Host "/global.json must either specify 'tools.dotnet' or 'tools.vswhere'." -ForegroundColor Red
+    exit 1
+  }
+
+  if ($ci) {
+    Write-Host "Using $buildDriver"
+  }
+
+  return $buildDriver, $buildArgs
+}
+
+function InitializeToolset([string] $buildDriver, [string]$buildArgs) {
+  $toolsetVersion = $GlobalJson.'msbuild-sdks'.'Microsoft.DotNet.Arcade.Sdk'
   $toolsetLocationFile = Join-Path $ToolsetDir "$toolsetVersion.txt"
 
   if (Test-Path $toolsetLocationFile) {
@@ -158,18 +195,21 @@ function InitializeToolset {
       return
     }
   }
-
-  if (!$restore) {
-    throw "Toolset has not been restored (version $toolsetVersion)."
+    
+  if (-not $restore) {
+    Write-Host  "Toolset version $toolsetVersion has not been restored."
+    exit 1
   }
 
   $proj = Join-Path $ToolsetDir "restore.proj"  
 
-  '<Project Sdk="RoslynTools.RepoToolset"/>' | Set-Content $proj
-  & $BuildDriver $BuildArgs $proj /t:__WriteToolsetLocation /m /nologo /clp:None /warnaserror /bl:$ToolsetRestoreLog /v:$verbosity /p:__ToolsetLocationOutputFile=$toolsetLocationFile
+  '<Project Sdk="Microsoft.DotNet.Arcade.Sdk"/>' | Set-Content $proj
+  & $buildDriver $buildArgs $proj /t:__WriteToolsetLocation /m /nologo /clp:None /warnaserror /bl:$ToolsetRestoreLog /v:$verbosity /p:__ToolsetLocationOutputFile=$toolsetLocationFile
     
   if ($lastExitCode -ne 0) {
-    throw "Failed to restore toolset (exit code '$lastExitCode'). See log: $ToolsetRestoreLog"
+    Write-Host "Failed to restore toolset (exit code '$lastExitCode')." -ForegroundColor Red
+    Write-Host "Build log: $ToolsetRestoreLog" -ForegroundColor DarkGray
+    exit $lastExitCode
   }
 
   $path = Get-Content $toolsetLocationFile -TotalCount 1
@@ -185,15 +225,41 @@ function InitializeCustomToolset {
     return
   }
 
-  $script = Join-Path $RepoRoot "build\RestoreToolset.ps1"
+  $script = Join-Path $EngRoot "RestoreToolset.ps1"
 
   if (Test-Path $script) {
     . $script
   }
 }
 
-function Build {
-  & $BuildDriver $BuildArgs $ToolsetBuildProj /m /nologo /clp:Summary /warnaserror /v:$verbosity /bl:$BuildLog /p:Configuration=$configuration /p:Projects=$projects /p:RepoRoot=$RepoRoot /p:Restore=$restore /p:DeployDeps=$deployDeps /p:Build=$build /p:Rebuild=$rebuild /p:Deploy=$deploy /p:Test=$test /p:IntegrationTest=$integrationTest /p:Sign=$sign /p:Pack=$pack /p:CIBuild=$ci $properties
+function Build([string] $buildDriver, [string]$buildArgs) {
+  & $buildDriver $buildArgs $ToolsetBuildProj `
+    /m /nologo /clp:Summary /warnaserror `
+    /v:$verbosity `
+    /bl:$BuildLog `
+    /p:Configuration=$configuration `
+    /p:Projects=$projects `
+    /p:RepoRoot=$RepoRoot `
+    /p:Restore=$restore `
+    /p:DeployDeps=$deployDeps `
+    /p:Build=$build `
+    /p:Rebuild=$rebuild `
+    /p:Deploy=$deploy `
+    /p:Test=$test `
+    /p:Pack=$pack `
+    /p:IntegrationTest=$integrationTest `
+    /p:PerformanceTest=$performanceTest `
+    /p:Sign=$sign `
+    /p:Publish=$publish `
+    /p:PublishBuildAssets=$publishBuildAssets `
+    /p:ContinuousIntegrationBuild=$ci `
+    /p:CIBuild=$ci `
+    $properties
+
+  if ($lastExitCode -ne 0) {
+    Write-Host "Build log: $BuildLog" -ForegroundColor DarkGray
+    exit $lastExitCode
+  }
 }
 
 function Stop-Processes() {
@@ -204,13 +270,14 @@ function Stop-Processes() {
 }
 
 try {
-  $RepoRoot = Join-Path $PSScriptRoot ".."
+  $RepoRoot = Join-Path $PSScriptRoot "..\.."
+  $EngRoot = Join-Path $PSScriptRoot ".."
   $ArtifactsDir = Join-Path $RepoRoot "artifacts"
   $ToolsetDir = Join-Path $ArtifactsDir "toolset"
-  $LogDir = Join-Path (Join-Path $ArtifactsDir $configuration) "log"
+  $LogDir = Join-Path (Join-Path $ArtifactsDir "log") $configuration
   $BuildLog = Join-Path $LogDir "Build.binlog"
   $ToolsetRestoreLog = Join-Path $LogDir "ToolsetRestore.binlog"
-  $TempDir = Join-Path (Join-Path $ArtifactsDir $configuration) "tmp"
+  $TempDir = Join-Path (Join-Path $ArtifactsDir "tmp") $configuration
   $GlobalJson = Get-Content -Raw -Path (Join-Path $RepoRoot "global.json") | ConvertFrom-Json
   
   if ($projects -eq "") {
@@ -233,24 +300,10 @@ try {
     $env:TMP = $TempDir
   }
 
-  # Presence of vswhere.version indicates the repo needs to build using VS msbuild
-  if ((Get-Member -InputObject $GlobalJson -Name "vswhere") -ne $null) {    
-    InitializeVisualStudioBuild
-  } elseif ((Get-Member -InputObject $GlobalJson -Name "sdk") -ne $null) {  
-    InitializeDotNetCli
-  } else {
-    throw "/global.json must either specify 'sdk.version' or 'vswhere.version'."
-  }
-
-  if ($ci) {
-    Write-Host "Using $BuildDriver"
-  }
-
-  InitializeToolset
+  $driver, $args = GetBuildCommand
+  InitializeToolset $driver $args
   InitializeCustomToolset
-
-  Build
-  exit $lastExitCode
+  Build $driver $args
 }
 catch {
   Write-Host $_
