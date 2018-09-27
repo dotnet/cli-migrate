@@ -8,8 +8,8 @@ This repository contains the code for the `dotnet migrate` command that was prev
 |:------:|
 | [![][win-x64-build-badge]][win-x64-build] |
 
-[win-x64-build-badge]: https://devdiv.visualstudio.com/_apis/public/build/definitions/0bdbc590-a062-4c3f-b0f6-9383f67865ee/5949/badge
-[win-x64-build]: https://devdiv.visualstudio.com/DevDiv/_build?_a=completed&definitionId=5949
+[win-x64-build-badge]: https://dnceng.visualstudio.com/internal/_apis/build/status/dotnet/cli-migrate/cli-migrate%203.0%20(Windows)%20(YAML)%20(Official)
+[win-x64-build]: https://dnceng.visualstudio.com/internal/_build?definitionId=142
 
 ## Using CLI `dotnet migrate`
 
