@@ -13,12 +13,13 @@ function InitializeDotNetCli_ProjectJson {
 }
 
 # Installs additional shared frameworks for testing purposes
-function InstallDotNetSharedFramework([string]$dotnetRoot, [string]$version) {
+function InstallDotNetSharedFramework([string]$version) {
+  $dotnetRoot = $env:DOTNET_INSTALL_DIR
   $fxDir = Join-Path $dotnetRoot "shared\Microsoft.NETCore.App\$version"
 
   if (!(Test-Path $fxDir)) {
     $installScript = GetDotNetInstallScript $dotnetRoot
-    & $installScript -Version $version -InstallDir $dotnetRoot -SharedRuntime
+    & $installScript -Version $version -InstallDir $dotnetRoot -Runtime "dotnet"
 
     if($lastExitCode -ne 0) {
       throw "Failed to install shared Framework $version to '$dotnetRoot' (exit code '$lastExitCode')."
@@ -30,6 +31,6 @@ function InstallDotNetSharedFramework([string]$dotnetRoot, [string]$version) {
 # Do not attempt to install them in source build.
 if ($env:DotNetBuildFromSource -ne "true") {
   InitializeDotNetCli_ProjectJson
-  InstallDotNetSharedFramework $env:DOTNET_INSTALL_DIR "1.0.5"
-  InstallDotNetSharedFramework $env:DOTNET_INSTALL_DIR "1.1.1"
+  InstallDotNetSharedFramework "1.0.5"
+  InstallDotNetSharedFramework "1.1.1"
 }

@@ -13,6 +13,7 @@ phases:
     queue: ${{ parameters.queue }}
     variables: 
       ${{ insert }}: ${{ parameters.variables }}
+      _AgentOSName: ${{ parameters.agentOs }}
       _HelixType: build/product
       _HelixBuildConfig: $(_BuildConfig)
       ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
