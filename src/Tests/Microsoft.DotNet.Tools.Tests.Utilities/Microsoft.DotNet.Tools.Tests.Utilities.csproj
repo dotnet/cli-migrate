@@ -2,7 +2,7 @@
 <!-- Copyright (c) .NET Foundation and contributors. All rights reserved. Licensed under the MIT license. See License.txt in the project root for full license information. -->
 <Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build"> <!-- workaround for https://github.com/dotnet/roslyn-tools/issues/245 -->
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <PublishOutputToSymStore>false</PublishOutputToSymStore>
     <IsShipping>false</IsShipping>
   </PropertyGroup>
