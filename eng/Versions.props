@@ -14,7 +14,7 @@
     <MicrosoftCodeAnalysisCSharpVersion>2.1.0</MicrosoftCodeAnalysisCSharpVersion>
     <MicrosoftDotNetCliUtilsVersion>1.0.1</MicrosoftDotNetCliUtilsVersion>
     <NuGetPackagingVersion>5.0.0-preview3.5781</NuGetPackagingVersion>
-    <NuGetProjectModelVersion>5.0.0-preview3.5781</NuGetProjectModelVersion>
+    <NuGetProjectModelVersion>$(NuGetPackagingVersion)</NuGetProjectModelVersion>
     <SystemCollectionsSpecializedVersion>4.3.0</SystemCollectionsSpecializedVersion>
   </PropertyGroup>
   <!-- Test Dependencies -->
