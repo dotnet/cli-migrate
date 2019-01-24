@@ -29,6 +29,7 @@ if [[ "${DotNetBuildFromSource:-}" == "true" ]]; then
   return
 fi
 
+InitializeDotNetCli true
 InitializeDotNetCli_ProjectJson
 InstallDotNetSharedFramework "1.0.5"
 InstallDotNetSharedFramework "1.1.1"
