@@ -43,7 +43,7 @@ phases:
     parameters:
       agentOs: Linux
       queue: 
-        name: dnceng-linux-external-temp
+        name: DotNetCore-Linux
         parallel: 2
         matrix:
           Build_Debug:
