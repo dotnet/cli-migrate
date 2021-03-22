@@ -1,6 +1,8 @@
 # CLI `dotnet migrate` command implementation
 
-This repository contains the code for the `dotnet migrate` command that was previously under [dotnet/cli](https://github.com/dotnet/cli), and that migrates "project.json" based projects to "csproj" based projects.
+This repository contains the code for the `dotnet migrate` command that was previously under [dotnet/cli](https://github.com/dotnet/cli), and that migrates "project.json" based projects to "csproj" based projects. Please see the [public documentation](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-migrate) for more information.
+
+This command was removed in .NET SDK 3.0 so only applies to 2.2 and earlier releases. This repo has been archived since 2.1 SDKs are seeing minimal changes and will go [out of support](https://devblogs.microsoft.com/dotnet/net-core-2-1-will-reach-end-of-support-on-august-21-2021/) in 6 months.
 
 ## Build Status
 
